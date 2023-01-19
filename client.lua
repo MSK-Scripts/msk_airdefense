@@ -3,28 +3,33 @@ ESX = exports['es_extended']:getSharedObject()
 CreateThread(function()
     while true do
         local wait = 1000
+        local playerPed = PlayerPedId()
+        local playerCoords = GetEntityCoords(playerPed)
+        local vehicle = GetVehiclePedIsIn(playerPed, false) 
 
-			local pPos = GetEntityCoords(PlayerPedId())
-			local pedVeh = GetVehiclePedIsIn(PlayerPedId(), false) 
+        for k, v in pairs(Config.Zones) do
+            local pos = v.pos
+            local dist = #(playerCoords - vehicle)
 
-			for k,v in pairs(Config.Zone) do
-				local pos = v.pos
-				local dst = Vdist(pos.x, pos.y, pos.z, pPos.x, pPos.y, pPos.z)
-
-				if dst <= v.radius then
-					wait = 0
-					for a,b in pairs(v.AllowJob) do
-						if ESX.PlayerData.job and ESX.PlayerData.job.name ~= b then
-							if GetVehicleClass(pedVeh) == 16 or GetVehicleClass(pedVeh) == 15 then
-								--[[ SetVehicleEngineHealth(pedVeh, 10) ]]
-								SetVehicleEngineOn(pedVeh, false, true, true)
-								print(SetVehicleEngineHealth)
-							end
-						end
-					end
-				end
-			end
-		
+            if dist <= v.radius then
+                if ESX.PlayerData and ESX.PlayerData.job and table.contains(v.allowedJobs, ESX.PlayerData.job.name) then
+                    if GetVehicleClass(vehicle) == 16 or GetVehicleClass(vehicle) == 15 then
+                        -- SetVehicleEngineHealth(vehicle, 10)
+                        SetVehicleEngineOn(vehicle, false, true, true)
+                    end
+                end
+            end
+        end
+        
         Wait(wait)
     end
 end)
+
+table.contains = function(t, value)
+    for k, v in pairs(t) do
+        if v == value then 
+            return true
+        end
+    end
+    return false
+end
