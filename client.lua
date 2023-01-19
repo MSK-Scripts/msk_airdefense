@@ -29,6 +29,7 @@ setEngineFailure = function(vehicle, v)
     if ESX.PlayerData and ESX.PlayerData.job and not table.contains(v.allowedJobs, ESX.PlayerData.job.name) then
         ESX.ShowAdvancedNotification(v.Notify.header, v.Notify.subject, v.Notify.msg:format(v.time), v.Notify.mugshot, v.Notify.iconType)
         Wait(v.time * 1000)
+        if not isSet then return end
 
         if GetVehicleClass(vehicle) == 16 or GetVehicleClass(vehicle) == 15 then
             SetVehicleEngineHealth(vehicle, 500)
