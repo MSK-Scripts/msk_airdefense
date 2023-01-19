@@ -9,7 +9,7 @@ CreateThread(function()
 
         for k, v in pairs(Config.Zones) do
             local pos = v.pos
-            local dist = #(playerCoords - vehicle)
+            local dist = #(playerCoords - v.radius)
 
             if dist <= v.radius then
                 if ESX.PlayerData and ESX.PlayerData.job and table.contains(v.allowedJobs, ESX.PlayerData.job.name) then
