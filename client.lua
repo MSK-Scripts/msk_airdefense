@@ -12,6 +12,9 @@ CreateThread(function()
             local dist = #(playerCoords - v.radius)
 
             if dist <= v.radius then
+                ESX.ShowAdvancedNotification(v.header, v.subject, (v.msg):format(v.time), v.mugshot, v.iconType)
+                Wait(v.time * 1000)
+
                 if ESX.PlayerData and ESX.PlayerData.job and table.contains(v.allowedJobs, ESX.PlayerData.job.name) then
                     if GetVehicleClass(vehicle) == 16 or GetVehicleClass(vehicle) == 15 then
                         -- SetVehicleEngineHealth(vehicle, 10)
