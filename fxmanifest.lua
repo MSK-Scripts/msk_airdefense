@@ -1,13 +1,15 @@
 fx_version 'adamant'
-games { 'gta5' };
+games { 'gta5' }
+
 author 'cmd - MSK Scripts'
+name 'msk_airdefense'
+description 'Let Aircrafts Crash over specific zones'
 version '1.0'
 
 shared_scripts {
-    "config.lua",
+    "config.lua"
 }
 
 client_scripts {
-    "@es_extended/locale.lua",
-    "client.lua",
+    "client.lua"
 }
