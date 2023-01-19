@@ -4,7 +4,7 @@ local isSet = false
 
 CreateThread(function()
     while true do
-        local sleep = 1000
+        local sleep = 200
         local playerPed = PlayerPedId()
         local playerCoords = GetEntityCoords(playerPed)
         local vehicle = GetVehiclePedIsIn(playerPed, false) 
@@ -14,7 +14,6 @@ CreateThread(function()
             local dist = #(pos - playerCoords)
 
             if dist <= v.radius and not isSet then
-                sleep = v.time
                 isSet = true
                 setEngineFailure(vehicle, v)
             elseif dist > v.radius and isSet then
