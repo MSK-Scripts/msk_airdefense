@@ -29,11 +29,11 @@ CreateThread(function()
         local vehicle = GetVehiclePedIsIn(PlayerPedId(), false) 
 
         if inDistance and not isSet and vehicle ~= 0 then
-            logging('debug', 'isSet = true', vehicle, type(vehicle))
+            --logging('debug', 'isSet = true', vehicle, type(vehicle))
             isSet = true
             setEngineFailure(vehicle, zone)
         elseif not inDistance and isSet then
-            logging('debug', 'isSet = false')
+            --logging('debug', 'isSet = false')
             isSet = false
         elseif inDistance and isSet and vehicle ~= 0 then 
             setEngineFailure(vehicle, zone, true)
@@ -69,8 +69,8 @@ setEngineFailure = function(vehicle, v, curDist)
             ESX.ShowAdvancedNotification(v.Notify.header, v.Notify.subject, v.Notify.msg:format(v.time), v.Notify.mugshot, v.Notify.iconType)
             Wait(v.time * 1000)
             local inDistance, zone = isInDistance()
-            logging('debug', 'inDistance:', inDistance)
-            if not inDistance then logging('debug', 'not inDistance:', inDistance) return end
+            --logging('debug', 'inDistance:', inDistance)
+            if not inDistance then return end
 
             if GetVehicleClass(vehicle) == 16 or GetVehicleClass(vehicle) == 15 then
                 SetVehicleEngineHealth(vehicle, 500)
