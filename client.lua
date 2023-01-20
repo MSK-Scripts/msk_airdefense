@@ -28,14 +28,12 @@ CreateThread(function()
         local inDistance, zone = isInDistance()
         local vehicle = GetVehiclePedIsIn(PlayerPedId(), false) 
 
-        if inDistance and not isSet and vehicle ~= 0 then
-            --logging('debug', 'isSet = true', vehicle, type(vehicle))
+        if inDistance and not isSet and vehicle ~= 0 and GetPedInVehicleSeat(GetVehiclePedIsIn(PlayerPedId()), -1) == PlayerPedId() then
             isSet = true
             setEngineFailure(vehicle, zone)
         elseif not inDistance and isSet then
-            --logging('debug', 'isSet = false')
             isSet = false
-        elseif inDistance and isSet and vehicle ~= 0 then 
+        elseif inDistance and isSet and vehicle ~= 0 and GetPedInVehicleSeat(GetVehiclePedIsIn(PlayerPedId()), -1) == PlayerPedId() then 
             setEngineFailure(vehicle, zone, true)
         end
         
@@ -57,8 +55,6 @@ isInDistance = function()
 end
 
 setEngineFailure = function(vehicle, v, curDist)
-    -- logging('debug', 'has allowedJob:', table.contains(v.allowedJobs, ESX.PlayerData.job.name))
-
     if ESX.PlayerData and ESX.PlayerData.job and not table.contains(v.allowedJobs, ESX.PlayerData.job.name) then
         if curDist then
             if GetVehicleClass(vehicle) == 16 or GetVehicleClass(vehicle) == 15 then
@@ -69,7 +65,6 @@ setEngineFailure = function(vehicle, v, curDist)
             ESX.ShowAdvancedNotification(v.Notify.header, v.Notify.subject, v.Notify.msg:format(v.time), v.Notify.mugshot, v.Notify.iconType)
             Wait(v.time * 1000)
             local inDistance, zone = isInDistance()
-            --logging('debug', 'inDistance:', inDistance)
             if not inDistance then return end
 
             if GetVehicleClass(vehicle) == 16 or GetVehicleClass(vehicle) == 15 then
