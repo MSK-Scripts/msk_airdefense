@@ -1,5 +1,15 @@
 ESX = exports["es_extended"]:getSharedObject()
 
+RegisterNetEvent('esx:playerLoaded')
+AddEventHandler('esx:playerLoaded', function(xPlayer)
+    ESX.PlayerData = xPlayer
+end)
+        
+RegisterNetEvent('esx:setJob')
+AddEventHandler('esx:setJob', function(job)
+    ESX.PlayerData.job = job
+end)
+
 local isSet = false
 
 CreateThread(function()
