@@ -1,6 +1,6 @@
 Config = {}
 
-Config.Debug = true
+Config.VersionChecker = true
 
 Config.Zones = {
     {
